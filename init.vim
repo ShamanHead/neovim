@@ -13,6 +13,10 @@ set autoindent
 set fileformat=unix
 filetype indent on      " load filetype-specific indent files
 
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 3
+
 " autocmd BufWinLeave *.* mkview
 " autocmd BufWinEnter *.* silent loadview
 inoremap qwr <esc>
@@ -21,12 +25,12 @@ let g:python3_host_prog = '/usr/bin/python3.9'
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'nvim-lua/plenary.nvim'
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'MunifTanjim/nui.nvim'
-Plug 'rcarriga/nvim-notify'
-Plug 'folke/noice.nvim'
+" Plug 'preservim/nerdtree'
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -38,35 +42,44 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'mattn/emmet-vim'
 
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+Plug 'sindrets/diffview.nvim'
 Plug 'captbaritone/better-indent-support-for-php-with-html'
 
 " color schemas
 Plug 'yunlingz/equinusocio-material.vim'
-" For JS/JSX
-Plug 'yuezk/vim-js'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'vim-airline/vim-airline'
+
 call plug#end()
 
-" colorscheme OceanicNext
-"let g:material_terminal_italics = 1
-" variants: default, palenight, ocean, lighter, darker, default-community,
-"           palenight-community, ocean-community, lighter-community,
-"           darker-community
-"let g:material_theme_style = 'darker'
-"colorscheme material
 if (has('termguicolors'))
   set termguicolors
 endif
 
-" variants: mirage, dark, dark
-"let ayucolor="mirage"
-"colorscheme ayu
+function! OpenExplorer(what)
+    execute "Vexplore " a:what
+    vertical resize 30;
+endfunction
 
-" turn off search highlight
 nnoremap ,<space> :nohlsearch<CR>
 
+nnoremap <A-t> :call OpenExplorer('%:h')<cr>
+nnoremap <A-f> :call OpenExplorer('.')<cr>
+
+nnoremap <A-c> :q<cr>
+
+nnoremap ,ff <cmd>Telescope find_files<cr>
+nnoremap ,fg <cmd>Telescope live_grep<cr>
+
+nnoremap ,df <cmd>DiffviewFileHistory %<cr>
+nnoremap ,db <cmd>DiffviewFileHistory<cr>
+
+nnoremap <A-s> <cmd>wa<cr><ESC>
+
 lua << EOF
+require('telescope').load_extension('fzf');
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 vim.lsp.set_log_level("debug")
@@ -126,7 +139,7 @@ lua << EOF
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "phpactor", "tailwindcss-language-server" }
+    ensure_installed = { "phpactor", "tailwindcss-language-server", "csharp-language-server" }
 })
 
 local nvim_lsp = require('lspconfig')
@@ -160,6 +173,7 @@ nvim_lsp.intelephense.setup{
     }
 }
 nvim_lsp.tailwindcss.setup{}
+nvim_lsp.csharp_ls.setup{};
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
