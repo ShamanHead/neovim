@@ -11,6 +11,21 @@ set shiftwidth=4
 set expandtab
 set autoindent
 set fileformat=unix
+
+set clipboard+=unnamedplus
+
+if(exists("g:neovide"))
+    let g:neovide_scale_factor = 0.65
+    set guifont=Ubuntu\ Mono\ Regular:h12
+    let g:neovide_transparency = 0.85
+    let g:neovide_refresh_rate_idle = 5 
+    let g:neovide_cursor_animation_length=0.15
+    let g:neovide_cursor_trail_size = 0.05
+else
+    au ColorScheme * hi Normal ctermbg=none guibg=none
+    au ColorScheme myspecialcolors hi Normal ctermbg=red guibg=red
+endif
+
 filetype indent on      " load filetype-specific indent files
 
 let g:netrw_banner = 0
@@ -29,18 +44,16 @@ Plug 'nvim-lua/plenary.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
-" Plug 'preservim/nerdtree'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -48,8 +61,12 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'sindrets/diffview.nvim'
 Plug 'captbaritone/better-indent-support-for-php-with-html'
 
+Plug 'maxmellon/vim-jsx-pretty'
+
 " color schemas
+
 Plug 'yunlingz/equinusocio-material.vim'
+Plug 'marko-cerovac/material.nvim'
 
 call plug#end()
 
@@ -61,6 +78,14 @@ function! OpenExplorer(what)
     execute "Vexplore " a:what
     vertical resize 30;
 endfunction
+
+nmap <a-c> "+y
+vmap <a-c> "+y
+nmap <a-v> "+p
+inoremap <a-v> <c-r>+
+cnoremap <a-v> <c-r>+
+" use <c-r> to insert original character without triggering things like auto-pairs
+inoremap <c-r> <a-v>
 
 nnoremap ,<space> :nohlsearch<CR>
 
@@ -75,10 +100,15 @@ nnoremap ,fg <cmd>Telescope live_grep<cr>
 nnoremap ,df <cmd>DiffviewFileHistory %<cr>
 nnoremap ,db <cmd>DiffviewFileHistory<cr>
 
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
+
 nnoremap <A-s> <cmd>wa<cr><ESC>
 
 lua << EOF
+
 require('telescope').load_extension('fzf');
+
+vim.g.material_style = "Palenight"
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -138,42 +168,9 @@ EOF
 lua << EOF
 
 require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = { "phpactor", "tailwindcss-language-server", "csharp-language-server" }
-})
+require("mason-lspconfig").setup()
 
 local nvim_lsp = require('lspconfig')
-
-nvim_lsp.intelephense.setup{
-    settings = {
-        intelephense = {
-            stubs = { 
-                "bcmath",
-                "bz2",
-                "calendar",
-                "Core",
-                "curl",
-                "zip",
-                "zlib",
-                "wordpress",
-                "woocommerce",
-                "acf-pro",
-                "wordpress-globals",
-                "wp-cli",
-                "genesis",
-                "polylang"
-            },
-            environment = {
-              -- includePaths = '/home/your-user/.composer/vendor/php-stubs/' -- this line forces the composer path for the stubs in case inteliphense don't find it...
-            },
-            files = {
-                maxSize = 5000000;
-            }
-        }
-    }
-}
-nvim_lsp.tailwindcss.setup{}
-nvim_lsp.csharp_ls.setup{};
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -204,9 +201,110 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
 
 end
+-- nvim_lsp.phpactor.setup({
+--     on_attach = on_attach,
+--     init_options = {
+--         ["language_server_phpstan.enabled"] = true,
+--         ["language_server_psalm.enabled"] = false,
+--     }
+-- })
+nvim_lsp.emmet_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+    init_options = {
+    html = {
+    options = {
+-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+        ["bem.enabled"] = true,
+    },
+    },
+    }
+})
+ nvim_lsp.intelephense.setup({
+     settings = {
+         intelephense = {
+             stubs = {
+                 "bcmath",
+                 "bz2",
+                 "Core",
+                 "curl",
+                 "date",
+                 "dom",
+                 "fileinfo",
+                 "filter",
+                 "gd",
+                 "gettext",
+                 "hash",
+                 "iconv",
+                 "imap",
+                 "intl",
+                 "json",
+                 "libxml",
+                 "mbstring",
+                 "mcrypt",
+                 "mysql",
+                 "mysqli",
+                 "password",
+                 "pcntl",
+                 "pcre",
+                 "PDO",
+                 "pdo_mysql",
+                 "Phar",
+                 "readline",
+                 "regex",
+                 "session",
+                 "SimpleXML",
+                 "sockets",
+                 "sodium",
+                 "standard",
+                 "superglobals",
+                 "tokenizer",
+                 "xml",
+                 "xdebug",
+                 "xmlreader",
+                 "xmlwriter",
+                 "yaml",
+                 "zip",
+                 "zlib",
+                 "wordpress-stubs",
+                 "woocommerce-stubs",
+                 "acf-pro-stubs",
+                 "wordpress-globals",
+                 "wp-cli-stubs",
+                 "genesis-stubs",
+                 "polylang-stubs"
+             },
+             -- environment = {
+             --   includePaths = {'/home/mte90/.composer/vendor/php-stubs/', '/home/mte90/.composer/vendor/wpsyntex/'}
+             -- },
+             files = {
+                 maxSize = 5000000;
+             };
+         };
+     },
+     capabilities = capabilities,
+     on_attach = on_attach
+     });
+nvim_lsp.cssls.setup{
+    on_attach = on_attach,
+}
+nvim_lsp.html.setup{
+    on_attach = on_attach,
+}
+nvim_lsp.tsserver.setup{
+    on_attach = on_attach,
+}
+nvim_lsp.tailwindcss.setup{
+    on_attach = on_attach,
+}
+nvim_lsp.csharp_ls.setup{
+    on_attach = on_attach,
+};
+
 
 
 EOF
@@ -282,8 +380,8 @@ function! s:Bclose(bang, buffer)
   execute wcurrent.'wincmd w'
 endfunction
 command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-args>)
-nnoremap <silent> <Leader>bd :Bclose<CR>
 
+nnoremap <silent> <Leader>bd :Bclose<CR>
 
 map gn :bn<cr>
 map gp :bp<cr>
@@ -291,4 +389,4 @@ map gw :Bclose<cr>
 
 set colorcolumn=79
 
-colorscheme equinusocio_material
+colorscheme material 
