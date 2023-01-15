@@ -15,9 +15,8 @@ set fileformat=unix
 set clipboard+=unnamedplus
 
 if(exists("g:neovide"))
-    let g:neovide_scale_factor = 0.65
-    set guifont=Ubuntu\ Mono\ Regular:h12
-    let g:neovide_transparency = 0.85
+    set guifont=Fira\ Code\ Nerd\ Font:h12
+    " let g:neovide_transparency = 0.85
     let g:neovide_refresh_rate_idle = 5 
     let g:neovide_cursor_animation_length=0.15
     let g:neovide_cursor_trail_size = 0.05
@@ -64,7 +63,7 @@ Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'maxmellon/vim-jsx-pretty'
 
 " color schemas
-
+Plug 'EdenEast/nightfox.nvim'
 Plug 'yunlingz/equinusocio-material.vim'
 Plug 'marko-cerovac/material.nvim'
 
@@ -73,6 +72,15 @@ call plug#end()
 if (has('termguicolors'))
   set termguicolors
 endif
+
+let g:neovide_scale_factor=0.65
+
+function! ChangeScaleFactor(delta)
+    let g:neovide_scale_factor = g:neovide_scale_factor * a:delta
+endfunction
+
+nnoremap <expr><C-=> ChangeScaleFactor(1.25)
+nnoremap <expr><C--> ChangeScaleFactor(1/1.25)
 
 function! OpenExplorer(what)
     execute "Vexplore " a:what
@@ -204,13 +212,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
 
 end
--- nvim_lsp.phpactor.setup({
---     on_attach = on_attach,
---     init_options = {
---         ["language_server_phpstan.enabled"] = true,
---         ["language_server_psalm.enabled"] = false,
---     }
--- })
+
 nvim_lsp.emmet_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -291,20 +293,70 @@ nvim_lsp.emmet_ls.setup({
      });
 nvim_lsp.cssls.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 nvim_lsp.html.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 nvim_lsp.tsserver.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 nvim_lsp.tailwindcss.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 nvim_lsp.csharp_ls.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 };
-
+nvim_lsp.sumneko_lua.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {'vim'},
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false,
+          },
+        },
+      },
+};
+nvim_lsp.rust_analyzer.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+            imports = {
+                granularity = {
+                    group = "module", 
+                }, 
+                prefix = "self", 
+            }, 
+            cargo = {
+                    buildScripts = {
+                        enable = true, 
+                    }, 
+                }, 
+                procMacro = {
+                    enable = true 
+                }, 
+            }    
+        }
+})
 
 
 EOF
@@ -389,4 +441,4 @@ map gw :Bclose<cr>
 
 set colorcolumn=79
 
-colorscheme material 
+colorscheme duskfox 
