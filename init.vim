@@ -21,8 +21,8 @@ if(exists("g:neovide"))
     let g:neovide_cursor_animation_length=0.15
     let g:neovide_cursor_trail_size = 0.05
 else
-    au ColorScheme * hi Normal ctermbg=none guibg=none
-    au ColorScheme myspecialcolors hi Normal ctermbg=red guibg=red
+    " au ColorScheme * hi Normal ctermbg=none guibg=none
+    " au ColorScheme myspecialcolors hi Normal ctermbg=red guibg=red
 endif
 
 filetype indent on      " load filetype-specific indent files
@@ -40,9 +40,16 @@ let g:python3_host_prog = '/usr/bin/python3.9'
 call plug#begin('~/.vim/plugged')
 
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+
+Plug 'goolord/alpha-nvim'
+Plug 's1n7ax/nvim-terminal'
+
+Plug 'nvim-tree/nvim-web-devicons'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 Plug 'williamboman/mason.nvim'
@@ -52,20 +59,15 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
-" Plug 'mattn/emmet-vim'
 
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 Plug 'sindrets/diffview.nvim'
-Plug 'captbaritone/better-indent-support-for-php-with-html'
-
-Plug 'maxmellon/vim-jsx-pretty'
 
 " color schemas
 Plug 'EdenEast/nightfox.nvim'
-Plug 'yunlingz/equinusocio-material.vim'
-Plug 'marko-cerovac/material.nvim'
 
 call plug#end()
 
@@ -82,11 +84,6 @@ endfunction
 nnoremap <expr><C-=> ChangeScaleFactor(1.25)
 nnoremap <expr><C--> ChangeScaleFactor(1/1.25)
 
-function! OpenExplorer(what)
-    execute "Vexplore " a:what
-    vertical resize 30;
-endfunction
-
 nmap <a-c> "+y
 vmap <a-c> "+y
 nmap <a-v> "+p
@@ -97,13 +94,13 @@ inoremap <c-r> <a-v>
 
 nnoremap ,<space> :nohlsearch<CR>
 
-nnoremap <A-t> :call OpenExplorer('%:h')<cr>
-nnoremap <A-f> :call OpenExplorer('.')<cr>
-
 nnoremap <A-c> :q<cr>
 
 nnoremap ,ff <cmd>Telescope find_files<cr>
 nnoremap ,fg <cmd>Telescope live_grep<cr>
+
+nnoremap ,er <cmd>Telescope file_browser<cr>
+nnoremap ,ee <cmd>:Telescope file_browser path=%:p:h<cr>
 
 nnoremap ,df <cmd>DiffviewFileHistory %<cr>
 nnoremap ,db <cmd>DiffviewFileHistory<cr>
@@ -113,8 +110,27 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 nnoremap <A-s> <cmd>wa<cr><ESC>
 
 lua << EOF
-
+require'alpha'.setup(require'alpha.themes.dashboard'.config)
+require("telescope").setup {
+  extensions = {
+    file_browser = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
+  },
+}
+require('nvim-terminal').setup()
 require('telescope').load_extension('fzf');
+require("telescope").load_extension("file_browser")
 
 vim.g.material_style = "Palenight"
 
