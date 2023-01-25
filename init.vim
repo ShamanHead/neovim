@@ -117,6 +117,7 @@ require("telescope").setup {
       theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
+      no_ignore=true,
       mappings = {
         ["i"] = {
           -- your custom insert mode mappings
@@ -131,12 +132,9 @@ require("telescope").setup {
 require('nvim-terminal').setup()
 require('telescope').load_extension('fzf');
 require("telescope").load_extension("file_browser")
-
-vim.g.material_style = "Palenight"
-
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -247,6 +245,7 @@ nvim_lsp.emmet_ls.setup({
          intelephense = {
              stubs = {
                  "bcmath",
+                 "laravel",
                  "bz2",
                  "Core",
                  "curl",
