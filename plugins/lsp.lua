@@ -1,7 +1,62 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
 
+local luasnip = require 'luasnip'
 local nvim_lsp = require('lspconfig')
+
+local cmp = require 'cmp'
+
+cmp.setup {
+    completion = {
+        autocomplete = false 
+    },
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
+        ['<Tab>'] = function(fallback)
+            if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+            elseif luasnip.expand_or_jumpable() then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true,
+                    true), '')
+            else
+                fallback()
+            end
+        end,
+        ['<S-Tab>'] = function(fallback)
+            if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+            elseif luasnip.jumpable(-1) then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true),
+                    '')
+            else
+                fallback()
+            end
+        end,
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'buffer' }
+    }
+}
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+--local navic = require('nvim-navic')
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -9,6 +64,10 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    -- navic
+
+    --navic.attach(client, bufnr)
 
     -- Enable completion triggered by <c-x><c-o>
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -36,8 +95,6 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
 
 end
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 nvim_lsp.emmet_ls.setup({
     on_attach = on_attach,
@@ -138,7 +195,7 @@ nvim_lsp.csharp_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
 };
-nvim_lsp.sumneko_lua.setup {
+nvim_lsp.lua_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -184,3 +241,4 @@ nvim_lsp.rust_analyzer.setup({
         }
     }
 })
+nvim_lsp.clangd.setup{}

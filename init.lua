@@ -1,14 +1,15 @@
 local api = vim.api;
 
 local conf_files = {
-    "plugins.lua",
-    "settings.lua",
-    "mappings.lua",
-    "plugins/init.lua",
+    "settings",
+    "mappings",
+    "plugins/init",
+    "autocommands"
 }
 
 for _, name in ipairs(conf_files) do
-    local path = vim.fn.stdpath("config") .. '/' .. name
+    local path = vim.fn.stdpath("config")
+        .. '/' .. name .. '.lua'
 
     local source_cmd = "source " .. path
 

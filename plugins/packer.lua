@@ -1,17 +1,68 @@
 return require('packer').startup(function(use)
+
+    use 'lewis6991/impatient.nvim'
+
     use 'wbthomason/packer.nvim'
 
     use 'nvim-lua/plenary.nvim'
     use 'nvim-lua/popup.nvim'
 
-    use 'goolord/alpha-nvim'
     use 's1n7ax/nvim-terminal'
 
     use 'nvim-tree/nvim-web-devicons'
 
     use {
-        'junegunn/fzf',
-        run = "<cmd>call fzf#install()<cr>"
+        "samjwill/nvim-unception",
+    }
+
+    use {
+        "norcalli/nvim-colorizer.lua"
+    }
+
+    use {
+        'glepnir/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('dashboard').setup {
+                theme = 'hyper',
+                config = {
+                    week_header = {
+                        enable = true,
+                    },
+                    shortcut = {
+                        { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
+                        {
+                            icon = ' ',
+                            icon_hl = '@variable',
+                            desc = 'Files',
+                            group = 'Label',
+                            action = 'Telescope find_files',
+                            key = 'f',
+                        },
+                        {
+                            desc = ' Apps',
+                            group = 'DiagnosticHint',
+                            action = 'Telescope app',
+                            key = 'a',
+                        },
+                        {
+                            desc = ' dotfiles',
+                            group = 'Number',
+                            action = 'Telescope dotfiles',
+                            key = 'd',
+                        },
+                    },
+                },
+            }
+        end,
+        requires = { 'nvim-tree/nvim-web-devicons' }
+    }
+    --use {
+    --    "SmiteshP/nvim-navic",
+    --    requires = "neovim/nvim-lspconfig"
+    --}
+    use {
+        "ahmedkhalf/project.nvim",
     }
 
     use {
@@ -19,40 +70,28 @@ return require('packer').startup(function(use)
         run = "<cmd>call doge#install()<cr>"
     }
 
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim'
-    use 'neovim/nvim-lspconfig'
-
-    use {
-        "L3MON4D3/LuaSnip",
-        run = "make install_jsregexp"
-    }
-
-    use {
-        'hrsh7th/nvim-cmp',
-        config = function()
-            require 'cmp'.setup {
-                snippet = {
-                    expand = function(args)
-                        require 'luasnip'.lsp_expand(args.body)
-                    end
-                },
-
-                sources = {
-                    { name = 'luasnip' },
-                    { name = 'nvim_cmp' },
-                },
-            }
-        end
-    }
-
-    use { 'hrsh7th/cmp-nvim-lsp' }
-    use { 'saadparwaiz1/cmp_luasnip' }
-
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
+
+    use({
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        tag = "v<CurrentMajor>.*",
+        -- install jsregexp (optional!:).
+        run = "make install_jsregexp"
+    })
+
+    use {
+        'hrsh7th/nvim-cmp',
+    }
+
+    use { 'hrsh7th/cmp-nvim-lsp' }
+
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
+    use 'neovim/nvim-lspconfig'
 
     use {
         'nvim-telescope/telescope.nvim',

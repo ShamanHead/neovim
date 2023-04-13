@@ -22,7 +22,7 @@ vim.cmd("set fileformat=unix")
 
 vim.cmd("set clipboard+=unnamedplus")
 
-vim.cmd("colorscheme duskfox")
+vim.cmd("colorscheme dayfox")
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

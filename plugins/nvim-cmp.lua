@@ -1,10 +1,10 @@
+local nvim_lsp = require('lspconfig')
 local luasnip = require 'luasnip'
-
 local cmp = require 'cmp'
 
 cmp.setup {
     completion = {
-        autocomplete = false
+        autocomplete = false 
     },
     snippet = {
         expand = function(args)
@@ -26,7 +26,8 @@ cmp.setup {
             if vim.fn.pumvisible() == 1 then
                 vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
             elseif luasnip.expand_or_jumpable() then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true,
+                    true), '')
             else
                 fallback()
             end
@@ -35,7 +36,8 @@ cmp.setup {
             if vim.fn.pumvisible() == 1 then
                 vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
             elseif luasnip.jumpable(-1) then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true),
+                    '')
             else
                 fallback()
             end
@@ -43,6 +45,6 @@ cmp.setup {
     },
     sources = {
         { name = 'nvim_lsp' },
-    },
+        { name = 'buffer' }
+    }
 }
-

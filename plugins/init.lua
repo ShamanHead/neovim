@@ -1,12 +1,14 @@
 local api = vim.api;
 
 local conf_files = {
-    "packer.lua",
-    "telescope.lua",
-    "alpha.lua",
-    "nvim-terminal.lua",
     "nvim-cmp.lua",
+    "nvim-colorizer.lua",
+    "telescope.lua",
+    "nvim-terminal.lua",
+    "lualine.lua",
     "lsp.lua",
+    "packer.lua",
+    "projectmanager.lua"
 }
 
 for _, name in ipairs(conf_files) do
