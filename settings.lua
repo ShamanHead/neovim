@@ -1,9 +1,8 @@
 -- If neovide, then change some settings
 if vim.g.neovide then
-    vim.opt.guifont = { "Fira Code Nerd", "h12" }
     vim.g.neovide_refresh_rate_idle = 5
     vim.g.neovide_scale_factor = 0.65
-    vim.g.neovide_cursor_animation_length = 0.15
+    vim.g.neovide_cursor_animation_length = 0.10
     vim.g.neovide_cursor_trail_size = 0.05
 end
 
@@ -22,7 +21,7 @@ vim.cmd("set fileformat=unix")
 
 vim.cmd("set clipboard+=unnamedplus")
 
-vim.cmd("colorscheme dayfox")
+vim.cmd("colorscheme duskfox")
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

@@ -1,5 +1,4 @@
 return require('packer').startup(function(use)
-
     use 'lewis6991/impatient.nvim'
 
     use 'wbthomason/packer.nvim'
@@ -57,10 +56,7 @@ return require('packer').startup(function(use)
         end,
         requires = { 'nvim-tree/nvim-web-devicons' }
     }
-    --use {
-    --    "SmiteshP/nvim-navic",
-    --    requires = "neovim/nvim-lspconfig"
-    --}
+
     use {
         "ahmedkhalf/project.nvim",
     }
@@ -89,9 +85,21 @@ return require('packer').startup(function(use)
 
     use { 'hrsh7th/cmp-nvim-lsp' }
 
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim'
-    use 'neovim/nvim-lspconfig'
+    use {
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
+        'neovim/nvim-lspconfig',
+        "mfussenegger/nvim-dap",
+        "theHamsta/nvim-dap-virtual-text"
+    }
+
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end,
+    }
 
     use {
         'nvim-telescope/telescope.nvim',
@@ -108,4 +116,10 @@ return require('packer').startup(function(use)
     use 'sindrets/diffview.nvim'
 
     use 'EdenEast/nightfox.nvim'
+
+    use {
+        'akinsho/bufferline.nvim',
+        tag = "v3.*",
+        requires = 'nvim-tree/nvim-web-devicons'
+    }
 end)

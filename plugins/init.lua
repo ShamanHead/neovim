@@ -8,7 +8,11 @@ local conf_files = {
     "lualine.lua",
     "lsp.lua",
     "packer.lua",
-    "projectmanager.lua"
+    "projectmanager.lua",
+    "tree-sitter.lua",
+    "bufferline.lua",
+    "dap.lua",
+    "dap-virtual-text.lua"
 }
 
 for _, name in ipairs(conf_files) do

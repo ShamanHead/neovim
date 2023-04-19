@@ -1,4 +1,3 @@
-
 -- Functional wrapper for mapping custom keybindings
 function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
@@ -9,12 +8,8 @@ function map(mode, lhs, rhs, opts)
 end
 
 local change_scale_factor = function(delta)
-  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
-
--- Neovim Tag find in new tab
-
-map("n", "<silent><Leader><C-]>", "<C-w><C-]><C-w>T")
 
 -- Fast close
 
@@ -43,6 +38,9 @@ map("n", ",fg", "<cmd>Telescope live_grep<cr>")
 
 map("n", ",er", "<cmd>Telescope file_browser<cr>")
 map("n", ",ee", "<cmd>Telescope file_browser path=%:p:h<cr>")
+
+map("n", ",rt", "<cmd>Telescope projects<cr>");
+map("n", ",tt", "<cmd>Telescope buffers<cr>");
 
 -- Diff
 
@@ -77,10 +75,18 @@ map("n", ",wt", "<cmd>tabnew | te<cr>")
 map("n", ",re", "<cmd>resize +20<cr>");
 map("n", ",rq", "<cmd>resize -20<cr>");
 
+-- DAP
+map("n",",dc", "<cmd>lua require'dap'.continue()<cr>")
+map("n", ",do", "<cmd>lua require'dap'.step_over()<cr>")
+map("n", ",di", "<cmd>lua require'dap'.into()<cr>")
+map("n", ",dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
+map("n", ",dr", "<cmd>lua require'dap'.repl.open()<cr>")
+map("n", ",dc", "<cmd>lua require'dap'.continue()<cr>")
+
 -- Neovide change scale factor
 
-vim.keymap.set("n", "<C-->", function() 
-    change_scale_factor(1/1.25)
+vim.keymap.set("n", "<C-->", function()
+    change_scale_factor(1 / 1.25)
 end)
 vim.keymap.set("n", "<C-=>", function()
     change_scale_factor(1.25)
