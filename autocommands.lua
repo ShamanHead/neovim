@@ -13,13 +13,6 @@ function nvim_create_augroups(definitions)
 end
 
 local autocmds = {
-    --reload_vimrc = {
-    --    -- Reload vim config automatically
-    --    {"BufWritePost",[[$VIM_PATH/{*.vim,*.yaml,vimrc} nested source $MYVIMRC | redraw]]};
-    --};
-    --packer = {
-    --    { "BufWritePost", "plugins.lua", "PackerCompile" };
-    --};
     terminal_job = {
         { "TermOpen", "*", [[tnoremap <buffer> <A-Esc> <c-\><c-n>]] };
         { "TermOpen", "*", "startinsert" };
@@ -28,21 +21,6 @@ local autocmds = {
     restore_cursor = {
         { 'BufRead', '*', [[call setpos(".", getpos("'\""))]] };
     };
-    --save_shada = {
-    --    {"VimLeave", "*", "wshada!"};
-    --};
-    --resize_windows_proportionally = {
-    --    { "VimResized", "*", ":wincmd =" };
-    --};
-    --toggle_search_highlighting = {
-    --    { "InsertEnter", "*", "setlocal nohlsearch" };
-    --};
-    --lua_highlight = {
-    --    { "TextYankPost", "*", [[silent! lua vim.highlight.on_yank() {higroup="IncSearch", timeout=400}]] };
-    --};
-    --ansi_esc_log = {
-    --    { "BufEnter", "*.log", ":AnsiEsc" };
-    --};
 }
 
 nvim_create_augroups(autocmds)

@@ -11,11 +11,11 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons'
 
     use {
-        "samjwill/nvim-unception",
+        'samjwill/nvim-unception',
     }
 
     use {
-        "norcalli/nvim-colorizer.lua"
+        'norcalli/nvim-colorizer.lua'
     }
 
     use {
@@ -58,12 +58,12 @@ return require('packer').startup(function(use)
     }
 
     use {
-        "ahmedkhalf/project.nvim",
+        'ahmedkhalf/project.nvim',
     }
 
     use {
         'kkoomen/vim-doge',
-        run = "<cmd>call doge#install()<cr>"
+        run = '<cmd>call doge#install()<cr>'
     }
 
     use {
@@ -72,11 +72,11 @@ return require('packer').startup(function(use)
     }
 
     use({
-        "L3MON4D3/LuaSnip",
+        'L3MON4D3/LuaSnip',
         -- follow latest release.
-        tag = "v<CurrentMajor>.*",
+        tag = 'v<CurrentMajor>.*',
         -- install jsregexp (optional!:).
-        run = "make install_jsregexp"
+        run = 'make install_jsregexp'
     })
 
     use {
@@ -89,8 +89,7 @@ return require('packer').startup(function(use)
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
-        "mfussenegger/nvim-dap",
-        "theHamsta/nvim-dap-virtual-text"
+        'mhartington/formatter.nvim'
     }
 
     use {
@@ -119,7 +118,7 @@ return require('packer').startup(function(use)
 
     use {
         'akinsho/bufferline.nvim',
-        tag = "v3.*",
+        tag = 'v3.*',
         requires = 'nvim-tree/nvim-web-devicons'
     }
 end)

@@ -11,8 +11,7 @@ local conf_files = {
     "projectmanager.lua",
     "tree-sitter.lua",
     "bufferline.lua",
-    "dap.lua",
-    "dap-virtual-text.lua"
+    "formatter.lua"
 }
 
 for _, name in ipairs(conf_files) do
