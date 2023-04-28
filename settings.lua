@@ -19,9 +19,13 @@ vim.cmd("set expandtab")
 vim.cmd("set autoindent")
 vim.cmd("set fileformat=unix")
 
+vim.cmd("set termguicolors")
+
 vim.cmd("set clipboard+=unnamedplus")
 
-vim.cmd("colorscheme duskfox")
+vim.cmd("set cmdheight=0")
+
+vim.cmd("colorscheme catppuccin-macchiato")
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
