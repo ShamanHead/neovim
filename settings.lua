@@ -4,6 +4,8 @@ if vim.g.neovide then
     vim.g.neovide_scale_factor = 0.65
     vim.g.neovide_cursor_animation_length = 0.10
     vim.g.neovide_cursor_trail_size = 0.05
+    vim.o.guifont = "Source Code Pro:h14"
+    vim.g.neovide_fullscreen = true
 end
 
 vim.cmd("set encoding=utf-8")
@@ -24,8 +26,6 @@ vim.cmd("set termguicolors")
 vim.cmd("set clipboard+=unnamedplus")
 
 vim.cmd("set cmdheight=0")
-
-vim.cmd("colorscheme catppuccin-macchiato")
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

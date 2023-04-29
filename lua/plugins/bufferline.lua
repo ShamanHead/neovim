@@ -30,9 +30,9 @@ return {
                 return "[" .. count .. "]"
             end,
             color_icons = true,
-            separator_style = "thick",
+            --separator_style = "thick",
             always_show_bufferline = true,
-            show_tab_indicators = false,
+            show_tab_indicators = true,
             sort_by = 'insert_after_current'
             -- add custom logic
         }
