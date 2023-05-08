@@ -1,7 +1,7 @@
 return {
     {
         'nvim-telescope/telescope.nvim',
-        dependencies = { 
+        dependencies = {
             'nvim-lua/plenary.nvim',
             ''
         },
@@ -18,7 +18,6 @@ return {
                 },
             }
             require('telescope').load_extension('projects')
-            require("telescope").load_extension("file_browser")
         end
     },
     {

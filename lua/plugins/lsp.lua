@@ -6,7 +6,6 @@ return {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
             local nvim_lsp = require("lspconfig")
@@ -115,9 +114,6 @@ return {
                             "genesis-stubs",
                             "polylang-stubs"
                         },
-                        -- environment = {
-                        --   includePaths = {'/home/mte90/.composer/vendor/php-stubs/', '/home/mte90/.composer/vendor/wpsyntex/'}
-                        -- },
                         files = {
                             maxSize = 5000000,
                         },
@@ -198,7 +194,7 @@ return {
     {
         "L3MON4D3/LuaSnip",
         -- follow latest release.
-        version = "<CurrentMajor>.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        version = "1.2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!).
         build = "make install_jsregexp"
     },
@@ -271,7 +267,6 @@ return {
                 "lua-language-server"
             },
         },
-        ---@param opts MasonSettings | {ensure_installed: string[]}
         config = function(_, opts)
             require("mason").setup(opts)
             local mr = require("mason-registry")

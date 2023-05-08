@@ -4,8 +4,7 @@ if vim.g.neovide then
     vim.g.neovide_scale_factor = 0.65
     vim.g.neovide_cursor_animation_length = 0.10
     vim.g.neovide_cursor_trail_size = 0.05
-    vim.o.guifont = "Source Code Pro:h14"
-    vim.g.neovide_fullscreen = true
+    vim.o.guifont = "JetBrainsMono Nerd Font:h14"
 end
 
 vim.cmd("set encoding=utf-8")

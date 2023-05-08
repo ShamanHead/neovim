@@ -32,7 +32,7 @@ return {
             color_icons = true,
             --separator_style = "thick",
             always_show_bufferline = true,
-            show_tab_indicators = true,
+            show_tab_indicators = false,
             sort_by = 'insert_after_current'
             -- add custom logic
         }

@@ -70,18 +70,10 @@ map("n", ",we", "<cmd>tabnew | e .<cr>")
 
 map("n", ",wt", "<cmd>tabnew | te<cr>")
 
--- Resize settings
+-- Floated Windows (lazygit, bpytop)
 
-map("n", ",re", "<cmd>resize +20<cr>");
-map("n", ",rq", "<cmd>resize -20<cr>");
-
--- DAP
-map("n",",dc", "<cmd>lua require'dap'.continue()<cr>")
-map("n", ",do", "<cmd>lua require'dap'.step_over()<cr>")
-map("n", ",di", "<cmd>lua require'dap'.into()<cr>")
-map("n", ",dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
-map("n", ",dr", "<cmd>lua require'dap'.repl.open()<cr>")
-map("n", ",dc", "<cmd>lua require'dap'.continue()<cr>")
+map("n", "flg", "<cmd>FloatermNew --height=37 --width=120 lazygit -p %:p:h<cr>")
+map("n", "fbp", "<cmd>FloatermNew --height=37 --width=120 bpytop<cr>")
 
 -- Neovide change scale factor
 
