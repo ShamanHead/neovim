@@ -24,6 +24,8 @@ vim.cmd("set termguicolors")
 
 vim.cmd("set clipboard+=unnamedplus")
 
+vim.cmd("set relativenumber");
+
 vim.cmd("set cmdheight=0")
 
 -- Set completeopt to have a better completion experience
