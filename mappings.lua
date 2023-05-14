@@ -72,7 +72,7 @@ map("n", ",wt", "<cmd>tabnew | te<cr>")
 
 -- Floated Windows (lazygit, bpytop)
 
-map("n", "flg", "<cmd>FloatermNew --height=37 --width=120 lazygit -p %:p:h<cr>")
+map("n", "flg", "<cmd>FloatermNew --height=37 --width=120 lazygit -p " .. vim.fn.getcwd() .. "<cr>")
 map("n", "fbp", "<cmd>FloatermNew --height=37 --width=120 bpytop<cr>")
 
 -- Neovide change scale factor
