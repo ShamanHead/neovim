@@ -35,6 +35,7 @@ map("n", "<a-v>", "\"+p")
 
 map("n", ",ff", "<cmd>Telescope find_files<cr>")
 map("n", ",fg", "<cmd>Telescope live_grep<cr>")
+map("n", ",fl", "<cmd>Telescope live_grep_args<cr>")
 
 map("n", ",er", "<cmd>Telescope file_browser<cr>")
 map("n", ",ee", "<cmd>Telescope file_browser path=%:p:h<cr>")
@@ -46,6 +47,7 @@ map("n", ",tt", "<cmd>Telescope buffers<cr>");
 
 map("n", ",df", "<cmd>DiffviewFileHistory %<cr>")
 map("n", ",db", "<cmd>DiffviewFileHistory<cr>")
+map("n", ",dc", "<cmd>DiffviewClose<cr>")
 
 -- LSP
 
