@@ -77,6 +77,14 @@ map("n", ",wt", "<cmd>tabnew | te<cr>")
 map("n", "flg", "<cmd>FloatermNew --height=37 --width=120 lazygit -p " .. vim.fn.getcwd() .. "<cr>")
 map("n", "fbp", "<cmd>FloatermNew --height=37 --width=120 bpytop<cr>")
 
+-- DAP
+
+map("n", ",so", "<cmd>lua require('dapui').open()<cr>")
+map("n", ",sx", "<cmd>lua require('dapui').close()<cr>")
+
+map("n", ",sd", "<cmd>DapToggleBreakpoint<cr>")
+map("n", ",sc", "<cmd>DapContinue<cr>")
+
 -- Neovide change scale factor
 
 vim.keymap.set("n", "<C-->", function()
