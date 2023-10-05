@@ -49,7 +49,7 @@ return {
             nvim_lsp.emmet_ls.setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
-                filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+                filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'php' },
                 init_options = {
                     html = {
                         options = {
@@ -125,7 +125,7 @@ return {
             nvim_lsp.html.setup {
                 on_attach = on_attach,
                 filetypes = {
-                    "html", 'svelte'
+                    "html", 'svelte', 'php'
                 },
                 capabilities = capabilities,
             }
@@ -187,6 +187,9 @@ return {
                     }
                 }
             })
+            nvim_lsp.volar.setup {
+                filetypes = { 'vue', 'json' }
+            }
             nvim_lsp.clangd.setup {}
             -- nvim_lsp.volar.setup{}
         end,
@@ -285,4 +288,13 @@ return {
             end
         end,
     },
+    {
+        "mfussenegger/nvim-lint",
+        config = function()
+            require "lint".linters_by_ft =
+            {
+                -- php = { 'phpcs' }
+            }
+        end,
+    }
 }

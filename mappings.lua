@@ -43,11 +43,12 @@ map("n", ",ee", "<cmd>Telescope file_browser path=%:p:h<cr>")
 map("n", ",rt", "<cmd>Telescope projects<cr>");
 map("n", ",tt", "<cmd>Telescope buffers<cr>");
 
--- Diff
+-- Git 
 
 map("n", ",df", "<cmd>DiffviewFileHistory %<cr>")
 map("n", ",db", "<cmd>DiffviewFileHistory<cr>")
 map("n", ",dc", "<cmd>DiffviewClose<cr>")
+map("n", ",gs", "<cmd>Gitsigns toggle_current_line_blame<cr>")
 
 -- LSP
 
@@ -84,6 +85,12 @@ map("n", ",sx", "<cmd>lua require('dapui').close()<cr>")
 
 map("n", ",sd", "<cmd>DapToggleBreakpoint<cr>")
 map("n", ",sc", "<cmd>DapContinue<cr>")
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 
 -- Neovide change scale factor
 

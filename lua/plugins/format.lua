@@ -1,7 +1,9 @@
 return {
     {
-        'kkoomen/vim-doge',
-        run = ':call doge#install()'
+        "kkoomen/vim-doge",
+        config = function()
+            vim.cmd("call doge#install()")
+        end,
     },
     {
         'justinmk/vim-sneak'
