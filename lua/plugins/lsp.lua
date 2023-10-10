@@ -59,65 +59,74 @@ return {
                     },
                 }
             })
-            nvim_lsp.intelephense.setup({
-                settings = {
-                    intelephense = {
-                        stubs = {
-                            "bcmath",
-                            "laravel",
-                            "bz2",
-                            "Core",
-                            "curl",
-                            "date",
-                            "dom",
-                            "fileinfo",
-                            "filter",
-                            "gd",
-                            "gettext",
-                            "hash",
-                            "iconv",
-                            "imap",
-                            "intl",
-                            "json",
-                            "libxml",
-                            "mbstring",
-                            "mcrypt",
-                            "mysql",
-                            "mysqli",
-                            "password",
-                            "pcntl",
-                            "pcre",
-                            "PDO",
-                            "pdo_mysql",
-                            "Phar",
-                            "readline",
-                            "regex",
-                            "session",
-                            "SimpleXML",
-                            "sockets",
-                            "sodium",
-                            "standard",
-                            "superglobals",
-                            "tokenizer",
-                            "xml",
-                            "xdebug",
-                            "xmlreader",
-                            "xmlwriter",
-                            "yaml",
-                            "zip",
-                            "zlib",
-                            "wordpress-stubs",
-                            "woocommerce-stubs",
-                            "acf-pro-stubs",
-                            "wordpress-globals",
-                            "wp-cli-stubs",
-                            "genesis-stubs",
-                            "polylang-stubs"
-                        },
-                        files = {
-                            maxSize = 5000000,
-                        },
-                    },
+            nvim_lsp.volar.setup {
+                filetypes = { 'vue', 'json' },
+                capabilities = capabilities,
+                on_attach = on_attach
+            }
+
+            nvim_lsp.phpactor.setup({
+                -- settings = {
+                -- phpactor = {
+                --     stubs = {
+                --         "bcmath",
+                --         "laravel",
+                --         "bz2",
+                --         "Core",
+                --         "curl",
+                --         "date",
+                --         "dom",
+                --         "fileinfo",
+                --         "filter",
+                --         "gd",
+                --         "gettext",
+                --         "hash",
+                --         "iconv",
+                --         "imap",
+                --         "intl",
+                --         "json",
+                --         "libxml",
+                --         "mbstring",
+                --         "mcrypt",
+                --         "mysql",
+                --         "mysqli",
+                --         "password",
+                --         "pcntl",
+                --         "pcre",
+                --         "PDO",
+                --         "pdo_mysql",
+                --         "Phar",
+                --         "readline",
+                --         "regex",
+                --         "session",
+                --         "SimpleXML",
+                --         "sockets",
+                --         "sodium",
+                --         "standard",
+                --         "superglobals",
+                --         "tokenizer",
+                --         "xml",
+                --         "xdebug",
+                --         "xmlreader",
+                --         "xmlwriter",
+                --         "yaml",
+                --         "zip",
+                --         "zlib",
+                --         "wordpress-stubs",
+                --         "woocommerce-stubs",
+                --         "acf-pro-stubs",
+                --         "wordpress-globals",
+                --         "wp-cli-stubs",
+                --         "genesis-stubs",
+                --         "polylang-stubs"
+                --     },
+                --     files = {
+                --         maxSize = 5000000,
+                --     },
+                -- },
+                -- },
+                filetypes = {
+                    "html", 'php'
                 },
                 capabilities = capabilities,
                 on_attach = on_attach
@@ -187,9 +196,6 @@ return {
                     }
                 }
             })
-            nvim_lsp.volar.setup {
-                filetypes = { 'vue', 'json' }
-            }
             nvim_lsp.clangd.setup {}
             -- nvim_lsp.volar.setup{}
         end,
@@ -202,10 +208,13 @@ return {
         build = "make install_jsregexp"
     },
     {
-        'hrsh7th/nvim-cmp'
+        'hrsh7th/nvim-cmp',
+        event = { "BufReadPre", "BufNewFile" },
+
     },
     {
         "hrsh7th/cmp-nvim-lsp",
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             local luasnip = require 'luasnip'
             local cmp = require 'cmp'
@@ -290,11 +299,23 @@ return {
     },
     {
         "mfussenegger/nvim-lint",
+        event = { "BufReadPre", "BufNewFile" },
+
         config = function()
             require "lint".linters_by_ft =
             {
                 -- php = { 'phpcs' }
             }
         end,
+    },
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        cmd = 'TroubleToggle',
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
     }
 }

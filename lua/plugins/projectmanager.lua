@@ -1,5 +1,6 @@
 return {
     "ahmedkhalf/project.nvim",
+    cmd = 'Telescope projects',
     config = function()
         require("project_nvim").setup {
             -- Manual mode doesn't automatically change your root directory, so you have

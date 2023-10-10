@@ -6,5 +6,8 @@ return {
             vim.cmd("colorscheme catppuccin-mocha")
         end
     },
-    { "ellisonleao/gruvbox.nvim" }
+    {
+        "ellisonleao/gruvbox.nvim",
+        event = 'VeryLazy'
+    }
 }

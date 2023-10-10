@@ -1,5 +1,6 @@
 return {
     's1n7ax/nvim-terminal',
+    event = 'VeryLazy',
     opts = {
         window = {
             -- Do `:h :botright` for more information

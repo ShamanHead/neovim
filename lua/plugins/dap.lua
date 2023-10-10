@@ -1,6 +1,7 @@
 return {
     {
         'mfussenegger/nvim-dap',
+        cmd = 'DapToggleBreakPoint',
         config = function()
             local dap = require("dap")
             dap.adapters.php = {
@@ -16,7 +17,8 @@ return {
                     log = true,
                     name = 'Listen for xdebug',
                     port = 9001,
-                    localSourceRoot = "/home/smhd/docker/"
+                    localSourceRoot = "/home/smhd/docker/metaform/backend",
+                    serverSourceRoot = 'api.app.localdomain'
                 }
             }
 
@@ -43,6 +45,7 @@ return {
     },
     {
         'rcarriga/nvim-dap-ui',
+        event = 'VeryLazy',
         dependencies = { "mfussenegger/nvim-dap" },
         config = function()
             require("dapui").setup()

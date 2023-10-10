@@ -21,6 +21,7 @@ return {
     },
     {
         "nvim-telescope/telescope-file-browser.nvim",
+        cmd = 'Telescope find_files',
         dependencies = {
             "nvim-telescope/telescope.nvim",
             "nvim-lua/plenary.nvim"
@@ -31,6 +32,7 @@ return {
     },
     {
         "nvim-telescope/telescope-live-grep-args.nvim",
+        cmd = {'Telescope live_grep_args'},
         config = function()
             require("telescope").load_extension("live_grep_args");
         end

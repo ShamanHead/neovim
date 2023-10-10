@@ -43,16 +43,19 @@ map("n", ",ee", "<cmd>Telescope file_browser path=%:p:h<cr>")
 map("n", ",rt", "<cmd>Telescope projects<cr>");
 map("n", ",tt", "<cmd>Telescope buffers<cr>");
 
+map("n", ",fe", "<cmd>Telescope keymaps<cr>")
+
+
 -- Git 
 
-map("n", ",df", "<cmd>DiffviewFileHistory %<cr>")
-map("n", ",db", "<cmd>DiffviewFileHistory<cr>")
-map("n", ",dc", "<cmd>DiffviewClose<cr>")
 map("n", ",gs", "<cmd>Gitsigns toggle_current_line_blame<cr>")
+map("n", ",df", "<cmd>DiffviewFileHistory %<cr>")
+map("n", ",dc", "<cmd>DiffviewClose<cr>")
 
 -- LSP
 
 map("n", ",gd", "<cmd><buffer> gd tab LspDefinition<cr>")
+map("n", ",qf", "<cmd>TroubleToggle<cr>")
 
 -- Buffer
 
@@ -85,6 +88,10 @@ map("n", ",sx", "<cmd>lua require('dapui').close()<cr>")
 
 map("n", ",sd", "<cmd>DapToggleBreakpoint<cr>")
 map("n", ",sc", "<cmd>DapContinue<cr>")
+
+-- Format
+
+map("n", "<C-f>", "<cmd>Format<cr>")
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   callback = function()

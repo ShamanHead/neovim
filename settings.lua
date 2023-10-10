@@ -19,6 +19,7 @@ vim.cmd("set shiftwidth=4")
 vim.cmd("set expandtab")
 vim.cmd("set autoindent")
 vim.cmd("set fileformat=unix")
+vim.cmd("set showtabline=0")
 
 vim.cmd("set termguicolors")
 
