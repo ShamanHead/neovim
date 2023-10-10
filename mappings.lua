@@ -43,7 +43,8 @@ map("n", ",ee", "<cmd>Telescope file_browser path=%:p:h<cr>")
 map("n", ",rt", "<cmd>Telescope projects<cr>");
 map("n", ",tt", "<cmd>Telescope buffers<cr>");
 
-map("n", ",fe", "<cmd>Telescope keymaps<cr>")
+map("n", ",fk", "<cmd>Telescope keymaps<cr>")
+map("n", ",fb", "<cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>")
 
 
 -- Git 
@@ -93,11 +94,7 @@ map("n", ",sc", "<cmd>DapContinue<cr>")
 
 map("n", "<C-f>", "<cmd>Format<cr>")
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  callback = function()
-    require("lint").try_lint()
-  end,
-})
+map("n", '<A-a>', '<c-^>')
 
 -- Neovide change scale factor
 
