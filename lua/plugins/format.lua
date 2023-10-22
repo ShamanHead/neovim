@@ -7,10 +7,6 @@ return {
         end,
     },
     {
-        'justinmk/vim-sneak',
-        event = 'VeryLazy',
-    },
-    {
         'mhartington/formatter.nvim',
         cmd = {'Format'},
         config = function()

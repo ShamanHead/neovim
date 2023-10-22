@@ -96,6 +96,11 @@ map("n", "<C-f>", "<cmd>Format<cr>")
 
 map("n", '<A-a>', '<c-^>')
 
+map("n", '<A-q>', '<cmd>:bprev<cr>')
+map("n", '<A-w>', '<cmd>:bnext<cr>')
+map("n", '<A-x>', '<cmd>:bd<cr>')
+
+
 -- Neovide change scale factor
 
 vim.keymap.set("n", "<C-->", function()
