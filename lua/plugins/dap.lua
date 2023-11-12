@@ -16,9 +16,14 @@ return {
                     request = 'launch',
                     log = true,
                     name = 'Listen for xdebug',
-                    port = 9001,
-                    localSourceRoot = "/home/smhd/docker/metaform/backend",
-                    serverSourceRoot = 'api.app.localdomain'
+                    port = 9003,
+                    -- localSourceRoot = "/home/smhd/docker",
+                    -- serverSourceRoot = 'localhost:8081',
+                    pathMappings = {
+                        ["/src"] = "/home/smhd/docker/consultancy-services/src",
+                        ["/var/www/html"] = "${workspaceFolder}",
+                        -- ["/var/www"] = "${workspaceFolder}",
+                    }
                 }
             }
 
@@ -48,7 +53,20 @@ return {
         event = 'VeryLazy',
         dependencies = { "mfussenegger/nvim-dap" },
         config = function()
-            require("dapui").setup()
+
+            local dap, dapui = require("dap"), require("dapui")
+
+            dapui.setup();
+            
+            dap.listeners.after.event_initialized["dapui_config"] = function()
+                dapui.open()
+            end
+            dap.listeners.before.event_terminated["dapui_config"] = function()
+                dapui.close()
+            end
+            dap.listeners.before.event_exited["dapui_config"] = function()
+                dapui.close()
+            end
         end,
     }
 }

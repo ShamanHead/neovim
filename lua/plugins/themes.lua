@@ -13,10 +13,10 @@ return {
         "navarasu/onedark.nvim",
         config = function()
             require('onedark').setup {
-                style = 'deep'
+                style = 'warm'
             }
             vim.cmd("colorscheme onedark")
-            vim.cmd("set background=light")
+            -- vim.cmd("set background=light")
         end,
     }
 }
