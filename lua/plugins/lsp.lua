@@ -44,7 +44,24 @@ return {
                 buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
                 buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
                 buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-                buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+                -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts)
+                -- local augroup_id = vim.api.nvim_create_augroup(
+                --     "FormatModificationsDocumentFormattingGroup",
+                --     { clear = false }
+                -- )
+                -- vim.api.nvim_clear_autocmds({ group = augroup_id, buffer = bufnr })
+                --
+                -- vim.api.nvim_create_autocmd(
+                --     { "BufWritePre" },
+                --     {
+                --         group = augroup_id,
+                --         buffer = bufnr,
+                --         callback = function()
+                --             local lsp_format_modifications = require "lsp-format-modifications"
+                --             lsp_format_modifications.format_modifications(client, bufnr)
+                --         end,
+                --     }
+                -- )
             end
             nvim_lsp.emmet_ls.setup({
                 on_attach = on_attach,
@@ -317,5 +334,8 @@ return {
                 virtual_text = false,
             })
         end,
+    },
+    {
+        'joechrisellis/lsp-format-modifications.nvim',
     }
 }

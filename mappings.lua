@@ -47,7 +47,7 @@ map("n", ",fk", "<cmd>Telescope keymaps<cr>")
 map("n", ",fb", "<cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>")
 
 
--- Git 
+-- Git
 
 map("n", ",gs", "<cmd>Gitsigns toggle_current_line_blame<cr>")
 map("n", ",df", "<cmd>DiffviewFileHistory %<cr>")
@@ -101,6 +101,7 @@ map("n", '<A-w>', '<cmd>:bnext<cr>')
 map("n", '<A-x>', '<cmd>:bd<cr>')
 
 map("v", '<M-k>', '<Cmd>lua require("dapui").eval()<CR>')
+map("v", '<leader>f', '<cmd>Format<cr>')
 
 -- Neovide change scale factor
 

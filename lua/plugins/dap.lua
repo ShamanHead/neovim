@@ -7,7 +7,7 @@ return {
             dap.adapters.php = {
                 type = 'executable',
                 command = 'node',
-                args = { os.getenv('HOME') .. '/vscode-php-debug/out/phpDebug.js' }
+                args = { '/home/smhd/.local/share/nvim/mason/packages/php-debug-adapter/extension/out/phpDebug.js' }
             }
 
             dap.configurations.php = {
@@ -21,8 +21,8 @@ return {
                     -- serverSourceRoot = 'localhost:8081',
                     pathMappings = {
                         ["/src"] = "/home/smhd/docker/consultancy-services/src",
+                        ["/var/www"] = "${workspaceFolder}",
                         ["/var/www/html"] = "${workspaceFolder}",
-                        -- ["/var/www"] = "${workspaceFolder}",
                     }
                 }
             }
